@@ -1,84 +1,81 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
-int main() {
-    int myArray[] = {1, 2};
-
-    string numeros1[10][10] = {
-        {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"},
-        {"11", "12", "13", "14", "15", "16", "17", "18", "19", "20"},
-        {"21", "22", "23", "24", "25", "26", "27", "28", "29", "30"},
-        {"31", "32", "33", "34", "35", "36", "37", "38", "39", "40"},
-        {"41", "42", "43", "44", "45", "46", "47", "48", "49", "50"},
-        {"51", "52", "53", "54", "55", "56", "57", "58", "59", "60"},
-        {"61", "62", "63", "64", "65", "66", "67", "68", "69", "70"},
-        {"71", "72", "73", "74", "75", "76", "77", "78", "79", "80"},
-        {"81", "82", "83", "84", "85", "86", "87", "88", "89", "90"},
-        {"91", "92", "93", "94", "95", "96", "97", "98", "99", "100"}
-    };
-
-    int swt;
-    double num1, num2, num3, painel;
-    cout << "Deves escolher entre um sorteio de 75, 90 e 100 números" << endl;
-    cin >> swt;
-
-    switch (swt) {
-        case 75:
-            cout << "xxxxxxxxxx PAINEL xxxxxxxxxx\n";
-            cout << "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15\n";
-            cout << "16 17 18 19 20 21 22 23 25 26 27 28 29 30\n";
-            cout << "31 32 33 34 35 36 37 38 39 40 41 42 43 44 45\n";
-            cout << "46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\n";
-            cout << "61 62 63 64 65 66 67 68 69 70 71 72 73 74 75\n";
-            break;
-        case 90:
-            cout << "xxxxxxxxxx PAINEL xxxxxxxxxx\n";
-            cout << "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15\n";
-            cout << "16 17 18 19 20 21 22 23 25 26 27 28 29 30\n";
-            cout << "31 32 33 34 35 36 37 38 39 40 41 42 43 44 45\n";
-            cout << "46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\n";
-            cout << "61 62 63 64 65 66 67 68 69 70 71 72 73 74 75\n";
-            cout << "76 77 78 79 80 81 82 83 84 85 86 87 88 89 90\n";
-            break;
-        case 100:
-            cout << "xxxxxxxxxx PAINEL xxxxxxxxxx\n";
-            cout << "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15\n";
-            cout << "16 17 18 19 20 21 22 23 25 26 27 28 29 30\n";
-            cout << "31 32 33 34 35 36 37 38 39 40 41 42 43 44 45\n";
-            cout << "46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\n";
-            cout << "61 62 63 64 65 66 67 68 69 70 71 72 73 74 75\n";
-            cout << "76 77 78 79 80 81 82 83 84 85 86 87 88 89 90\n";
-            cout << "91 92 93 94 95 96 97 98 99 100\n";
-            break;
-        default:
-            cout << "Erro" << endl;
-            break;
-    }
-
-    return 0;
-}
-
-void gerarCartao(int numeroCartao) {
-        string nomeArquivo = "cartao" + to_string(numeroCartao) + ".txt";
-        ofstream arquivo(nomeArquivo);
-
-        if (arquivo.is_open()) {
-            arquivo << "x  x  x  x  x\n";
-            arquivo << "x  x      x  x\n";
-            arquivo << "x  x      x  x\n";
-            arquivo << "x  x  x  x  x\n";
-
-            arquivo.close();
-            cout << "Cartão gerado com sucesso: " << nomeArquivo << endl;
-        } else {
-            cerr << "Erro ao criar o arquivo: " << nomeArquivo << endl;
+void mostrarPainel(int totalNumeros) {
+    cout << "xxxxxxxxxx PAINEL xxxxxxxxxx\n";
+    for (int i = 1; i <= totalNumeros; ++i) {
+        cout << i << " ";
+        if (i % 15 == 0) {
+            cout << endl;
         }
     }
+    cout << endl;
+}
 
-    int main() {
+void gerarCartao(int numeroCartao, int totalNumeros) {
+    string nomeArquivo = "cartao" + to_string(numeroCartao) + ".txt";
+    ofstream arquivo(nomeArquivo);
+
+    if (arquivo.is_open()) {
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+                int numero = rand() % totalNumeros + 1;
+                arquivo << numero << " ";
+            }
+            arquivo << endl;
+        }
+
+        arquivo.close();
+        cout << "Cartão gerado com sucesso: " << nomeArquivo << endl;
+    } else {
+        cerr << "Erro ao criar o arquivo: " << nomeArquivo << endl;
+    }
+}
+
+int main() {
+    srand(time(0));  
+
+    int totalNumeros;
+    int modoSorteio;
+
+    cout << "Deves escolher entre um sorteio de 75 , 90  ou 100 números: ";
+    cin >> modoSorteio;
+
+    switch (modoSorteio) {
+        case 75:
+            totalNumeros = 75;
+            break;
+        case 90:
+            totalNumeros = 90;
+            break;
+        case 100:
+            totalNumeros = 100;
+            break;
+        default:
+            cerr << "Opção inválida." << endl;
+            return 1;
+    }
+
+    mostrarPainel(totalNumeros);
+
+    int escolha;
+    cout << "Escolha o modo de sorteio (1 - Automático, 2 - Manual): ";
+    cin >> escolha;
+
+    if (escolha == 1) {
+        for (int i = 1; i <= totalNumeros; ++i) {
+            cout << "Número sorteado: " << i << endl;
+            if (i > 1) {
+                cout << "Anterior: " << i - 1 << endl;
+            }
+            
+        }
+    } else if (escolha == 2) {
         int quantidadeCartoes;
 
         cout << "Quantos cartões deseja gerar? ";
@@ -86,11 +83,16 @@ void gerarCartao(int numeroCartao) {
 
         if (quantidadeCartoes > 0) {
             for (int i = 1; i <= quantidadeCartoes; ++i) {
-                gerarCartao(i);
+                gerarCartao(i, totalNumeros);
             }
         } else {
             cerr << "A quantidade de cartões deve ser maior que zero." << endl;
+            return 1;
         }
-
-        return 0;
+    } else {
+        cerr << "Opção inválida." << endl;
+        return 1;
     }
+
+    return 0;
+}
