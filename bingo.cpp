@@ -16,17 +16,17 @@
 using namespace std;
 
 void mostrarPainel(int totalNumeros, const vector<bool>& marcados, int numeroSorteado, int anteriorSorteado) {
-    cout << "\033[2J\033[1;1H";  
-    cout << "xxxxxxxxxxxxxxxxxx PAINEL xxxxxxxxxxxxxxxxxx\n";
+    cout << "\033[2J\033[1;1H"; 
+    cout << "xxxxxxxxxx PAINEL xxxxxxxxxx\n";
     for (int i = 1; i <= totalNumeros; ++i) {
         if (marcados[i - 1]) {
-            cout << "\033[1;31m"; 
+            cout << "\033[1;31m";  
         } else if (i == numeroSorteado || i == anteriorSorteado) {
             cout << "\033[1;34m";  
         }
         cout << (i < 10 ? " " : "") << i << " ";
         if (marcados[i - 1] || i == numeroSorteado || i == anteriorSorteado) {
-            cout << "\033[0m"; 
+            cout << "\033[0m";  
         }
         if (i % 15 == 0) {
             cout << endl;
@@ -59,12 +59,13 @@ void pausar(int milissegundos) {
 #ifdef _WIN32
     Sleep(milissegundos);
 #else
-    usleep(milissegundos * 1000);  
+    usleep(milissegundos * 1000); 
 #endif
 }
 
 int main() {
     srand(time(0));  
+
     int totalNumeros;
     int escolha;
 
@@ -78,6 +79,24 @@ int main() {
         int quantidadeCartoes;
         cout << "Quantos cartões deseja gerar? ";
         cin >> quantidadeCartoes;
+
+        cout << "Escolha o intervalo de números:\n";
+        cout << "1 - 75\n";
+        cout << "2 - 90\n";
+        cout << "3 - 100\n";
+        int escolhaIntervalo;
+        cin >> escolhaIntervalo;
+
+        if (escolhaIntervalo == 1) {
+            totalNumeros = 75;
+        } else if (escolhaIntervalo == 2) {
+            totalNumeros = 90;
+        } else if (escolhaIntervalo == 3) {
+            totalNumeros = 100;
+        } else {
+            cerr << "Opção inválida." << endl;
+            return 1;
+        }
 
         if (quantidadeCartoes > 0) {
             for (int i = 1; i <= quantidadeCartoes; ++i) {
@@ -145,7 +164,6 @@ int main() {
         do {
             cout << "\nSorteio Manual" << endl;
 
-          
             random_shuffle(numerosDisponiveis.begin(), numerosDisponiveis.end());
 
             numeroSorteado = numerosDisponiveis.back();
@@ -156,7 +174,6 @@ int main() {
 
             anteriorSorteado = numeroSorteado;
 
-          
             marcados[numeroSorteado - 1] = true;
 
             cout << "Deseja sortear um novo número? (s/n): ";
