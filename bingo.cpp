@@ -107,7 +107,7 @@ int main() {
             return 1;
         }
 
-        return 0;
+        return main();
     }
 
     if (escolha == 1) {
