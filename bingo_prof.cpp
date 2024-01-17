@@ -39,3 +39,73 @@ typedef struct {
 
 bingoPanel bingo [] = {};
 
+/**
+* @brief Função para contar uma string no ecrã
+*
+* @param mensagem
+*/
+
+
+void centerString(string manesagem) {
+    int l = mensagem.lengh();
+    int pos = (int)(numColunasPainel - 3 (l)) / 2);
+    for (int i = 0; i < pos; i++) {
+        cout << "";
+    }
+    cout << blue;
+    cout << mensagem << reset;
+    cout << blue << blue;
+    }
+/**
+* 
+* @brief 
+*/
+void intArray() {
+    for (int i = 0; i <= numDeBolas; i++) {
+        bing[1].numero = i + 1;
+        bingo[1].sorteado = false;
+    }
+}
+
+/**
+* @brief Função de apresentação dos cartões
+* 
+*/
+void opcoes() {
+
+    tipoSorteio = 0;
+
+    while (tipoSorteio < 1 || tipoSorteio > 4) {
+
+        system("clear || cls");
+        cout << blue
+            << "--------------------------------\n"
+            << blue << bold
+            << "M E N U      P R I N C I P A L\n" << reset << blue
+            << "--------------------------------" << endl
+            << "1 - Sorteio Manual\n"
+            << "2 - Sorteio Automático\n"
+            << "3 - Gerar Cartões\n"
+            << "4 - Sair\n"
+            << "--------------------------------" << endl
+            << bold << "Opção: " << reset << blue;
+        cin >> tipoSorteio;
+    }
+
+    if (tipoSorteio != 1 && tipoSorteio != )
+
+}
+
+/*
+* @brif Função para apresentação do painel de bingo
+*
+* @param sorteado
+* @param sorteadoAnteriormente
+*/
+
+void showBingoPanel(int sorteado, int sorteadoAnteriormente) {
+
+    system("clear ||  cls");
+
+    centerString("J O G O  D O  B I N G O");
+
